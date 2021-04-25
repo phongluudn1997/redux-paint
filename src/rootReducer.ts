@@ -1,5 +1,5 @@
 import { RootState } from "./types";
-import { Action } from "./actions";
+import { Action, BEGIN_STROKE, END_STROKE, UPDATE_STROKE } from "./actions";
 
 const initialState = {
   currentStroke: { points: [], color: "#000" },
@@ -10,8 +10,34 @@ const initialState = {
 export const rootReducer = (
   state: RootState = initialState,
   action: Action
-) => {
+): RootState => {
   switch (action.type) {
+    case BEGIN_STROKE:
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [action.payload],
+        },
+      };
+    case UPDATE_STROKE:
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [...state.currentStroke.points, action.payload],
+        },
+      };
+    case END_STROKE:
+      if (!state.currentStroke.points.length) return state;
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [],
+        },
+        strokes: [...state.strokes, state.currentStroke],
+      };
     default:
       return state;
   }
