@@ -2,6 +2,7 @@ import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { beginStroke, updateStroke, endStroke } from "./actions";
 import { drawStroke } from "./canvasUtils";
+import { ColorPanel } from "./ColorPanel";
 import { currentStrokeSelector } from "./selectors";
 
 function App() {
@@ -43,13 +44,16 @@ function App() {
   }, [currentStroke]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseUp={endDrawing}
-      onMouseOut={endDrawing}
-      onMouseMove={draw}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseUp={endDrawing}
+        onMouseOut={endDrawing}
+        onMouseMove={draw}
+      />
+      <ColorPanel />
+    </>
   );
 }
 

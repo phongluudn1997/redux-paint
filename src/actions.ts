@@ -4,6 +4,7 @@ import { Point } from "./types";
 export const BEGIN_STROKE = "BEGIN_STROKE";
 export const UPDATE_STROKE = "UPDATE_STROKE";
 export const END_STROKE = "END_STROKE";
+export const SET_STROKE_COLOR = "SET_STROKE_COLOR";
 
 // Action type
 export type Action =
@@ -17,6 +18,10 @@ export type Action =
     }
   | {
       type: typeof END_STROKE;
+    }
+  | {
+      type: typeof SET_STROKE_COLOR;
+      payload: string;
     };
 
 // Action creators
@@ -32,4 +37,9 @@ export const updateStroke = (x: number, y: number): Action => ({
 
 export const endStroke = (): Action => ({
   type: END_STROKE,
+});
+
+export const setStrokeColor = (color: string): Action => ({
+  type: SET_STROKE_COLOR,
+  payload: color,
 });
